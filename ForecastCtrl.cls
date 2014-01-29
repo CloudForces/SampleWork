@@ -514,12 +514,9 @@ public with sharing class ForecastCtrl {
             ApexPages.addMessages(ex); 
         } 
     }
-    <apex:commandLink action="{!URLFOR($Action.Forecast__c.Submit,recordId)}" value="Submit" style="text-decoration:none" styleClass="btn" rendered="{!!isManager}">
-        <apex:param name="rec" assignto="{!recordid}" value="{!recordid}"/>
-    </apex:commandLink>
+   
     
-    URL to navigate to aprroval screen 
-        https://cs30.salesforce.com/p/process/ProcessInstanceWorkitemWizardStageManager?id=04in00000000ezU
+   
     
     
 ***/
