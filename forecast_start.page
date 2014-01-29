@@ -1,0 +1,131 @@
+﻿<apex:page controller="ForecastCtrl">
+	<apex:form >
+	<apex:pageBlock >
+        <apex:selectList size="1" value="{!choice}">
+            <apex:selectOptions value="{!optionList}"/>
+            <apex:actionSupport action="{!changeForecast}" event="onchange" reRender="forecastLanding" />
+        </apex:selectList>
+    </apex:pageBlock>
+      <apex:pageBlock title="My Forecasts" id="InnerSummary">
+          <apex:repeat value="{!sumPersList}" var="tmp">
+                <apex:messages style="color: red; font-weight: strong;" />
+                    <table class="list "  border="0" cellpadding="0" cellspacing="0">
+                            <colgroup span="11"></colgroup>
+                            <thead class="rich-table-thead">
+                                <tr class="headerRow ">         
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >Entry Period</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Month1_Code__c}</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Month2_Code__c}</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Month3_Code__c}</div>
+                                    </th> 
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Quarter1_code__c}  </div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Month4_Code__c}</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Month5_Code__c}</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Month6_Code__c}</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >{!tmp.Quarter2_code__c} </div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >Status</div>
+                                    </th>
+                                    <th class="headerRow  " scope="col" colspan="1" >
+                                        <div >Comments</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
+                                onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
+                                onfocus="if (window.hiOn){hiOn(this);}">
+                                    <td class="dataCell  " colspan="1">
+                                        <apex:commandLink action="{!viewDetail}" value="{!tmp.Entry_Period__c}" style="color: blue; text-decoration: underline;">
+                                            <apex:param name="rec" value="{!tmp.Id}" assignTo="{!recordId}"/>
+                                        </apex:commandLink>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_month1_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_month2_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_month3_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_quarter1_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_month4_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_month5_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_month6_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                        <span> <apex:outputText value="{0,number,$###,###,##0}">
+                                        	<apex:param value="{!tmp.RUS_quarter2_forecast__c}" />
+                                        </apex:outputText> </span>
+                                    </td>
+                                    <td class="dataCell  " colspan="1">
+                                       <apex:outputPanel title="Submitted On" rendered="{!If(AND(tmp.Submitted__c, !tmp.Approved__c),true,false) }"> 
+                                            Submitted On: &nbsp;
+                                            <apex:outputText value="{0,date,MMM dd, yyyy}" >
+                                               <apex:param value="{!tmp.Submit_Date__c}" />
+                                           </apex:outputText>
+                                       </apex:outputPanel>
+                                       <apex:outputPanel title="Approved On" rendered="{!tmp.Approved__c}"> 
+                                            <br></br>
+                                            Approved On:  &nbsp;
+                                            <apex:outputText value="{0,date,MMM dd, yyyy}">
+                                               <apex:param value="{!tmp.Approval_Date__c}" />
+                                           </apex:outputText> 
+                                       </apex:outputPanel>
+                                       <apex:outputPanel title="Rejected On" rendered="{!If(Isnull(tmp.Reject_Date__c),false,true)}" > 
+                                            <br></br>
+                                            Rejected On:  &nbsp;
+                                            <apex:outputText value="{0,date,MMM dd, yyyy}">
+                                               <apex:param value="{!tmp.Reject_Date__c}" />
+                                           </apex:outputText> 
+                                       </apex:outputPanel>
+                                        
+                                    </td>
+                                    <td class="dataCell  " colspan="1">{!tmp.Comments__c}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                   
+    </apex:repeat>
+      </apex:pageBlock>
+      </apex:form> 
+</apex:page>

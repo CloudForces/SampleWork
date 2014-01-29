@@ -1,0 +1,11 @@
+<apex:page standardController="Forecast__c" extensions="ForecastCtrl" sidebar="false" tabStyle="iAd_Forecast__tab" title="Sales Forecasting">
+	<apex:pageBlock id="forecastLanding">
+		
+	    <apex:include pageName="team_forecast" rendered="{!showTeamSummary}" /> 
+	    <apex:include pageName="forecast_start" rendered="{!If(showTeamSummary,false,true)}" /> 
+	    
+	    <!--  Team[ title="Team Forecasts" id="teamForecastSummary" rendered="{!showTeamSummary}" ]
+	    		Personal [ title="My Forecasts" id="userForecastSummary" rendered="{!If(showTeamSummary,false,true)}" ]
+	    -->
+	</apex:pageBlock>
+</apex:page>

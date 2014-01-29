@@ -1,0 +1,181 @@
+<apex:page controller="ForecastCtrl" id="forecastDetailsPage">
+    <script>
+	    var numRegex = /^\d+(\.\d{1,2})?$/;
+		var tmp = 1.21;
+		var res =  numRegex.test( tmp );
+    </script>
+    
+    <apex:form >
+        <apex:pageBlock title="Edit {!selectedForecast.Sales_Rep__r.Name}'s Forecast Details - {!selectedForecast.Entry_Period__c}" > 
+            <apex:messages style="color: red; font-weight: strong;"/>
+            <table class="list "  border="0" cellpadding="0" cellspacing="0">
+                <apex:repeat var="f" value="{!workingList}">
+                <colgroup span="13"></colgroup>
+                <thead class="rich-table-thead">   
+                    <tr class="headerRow ">
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Advertiser Name</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Opp Name</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Opp Stage</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Product</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Split %</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Opp Budget</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="3" ><div >{!f.quarter1_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="3" ><div >{!f.quarter2_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Comments</div>
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
+                        onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
+                        onfocus="if (window.hiOn){hiOn(this);}">
+                            <td class="dataCell  "  colspan="1">
+                                <apex:outputLink value="/{!f.Advertiser__c}" target="_blank" style="color: blue; text-decoration: underline;" >{!f.Advertiser__r.Name}</apex:outputLink>
+                            </td>
+                            <td class="dataCell  " colspan="1">
+                                <apex:outputLink value="/{!f.Opportunity__c}" target="_blank" style="color: blue; text-decoration: underline;" >{!f.Opportunity__r.Name}</apex:outputLink>
+                            </td>
+                            <td class="dataCell  " colspan="1">
+                                <apex:outputField value="{!f.StageName__c}"/> 
+                            </td>
+                            <td class="dataCell  " colspan="1">
+                                <apex:outputField value="{!f.iAd_Type__c}"/> 
+                            </td>
+                            <td class="dataCell  " colspan="1">
+                                <apex:outputField value="{!f.Split_Percent__c}"/> 
+                            </td>
+                            <td class="dataCell  " colspan="1">
+                                <apex:outputField value="{!f.Budget__c}"/> 
+                            </td>
+                            <td class="dataCell  " colspan="3">
+                                 <span>
+                                     <div>
+                                         <apex:outputText value="{0,number,$###,###,##0.00}">
+                                            <apex:param value="{!f.Quarter1_Forecast__c}"/>
+                                        </apex:outputText>
+                                     </div>
+                                     <br/>
+                                     <table class="list "  border="0" cellpadding="0" cellspacing="0">
+                                         <colgroup span="3"></colgroup>
+                                         <thead class="rich-table-thead">
+                                             <tr class="headerRow ">
+                                                 <th class="headerRow  " scope="col" colspan="1" ><div >{!f.Month1_code__c}</div>
+                                                 </th>
+                                                 <th class="headerRow  " scope="col" colspan="1" ><div >{!f.Month2_code__c}</div>
+                                                 </th>
+                                                 <th class="headerRow  " scope="col" colspan="1" ><div >{!f.Month3_code__c}</div>
+                                                 </th>
+                                             </tr>
+                                         </thead>
+                                         <tbody>
+                                             <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
+                                                 onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
+                                                 onfocus="if (window.hiOn){hiOn(this);}">
+                                                 <td class="dataCell  " colspan="1">
+                                                     <span>
+                                                        <apex:inputField value="{!f.Month1_Forecast__c}"/><br/>
+                                                     Budget: &nbsp;
+                                                    <apex:outputText value="{0,number,$###,###,##0}">
+                                                        <apex:param value="{! f.month1_budget__c }"/>
+                                                    </apex:outputText>
+                                                    </span>
+                                                 </td>
+                                                 <td class="dataCell  " colspan="1">
+                                                    <apex:inputField value="{!f.Month2_Forecast__c}"/><br/>
+                                                     Budget: &nbsp;
+                                                    <apex:outputText value="{0,number,$###,###,##0}">
+                                                        <apex:param value="{! f.month2_budget__c }"/>
+                                                    </apex:outputText>     
+                                                 </td>
+                                                 <td class="dataCell  " colspan="1">
+                                                    <apex:inputField value="{!f.Month3_Forecast__c}"/><br/>
+                                                     Budget: &nbsp;
+                                                    <apex:outputText value="{0,number,$###,###,##0}">
+                                                        <apex:param value="{! f.month3_budget__c }"/>
+                                                    </apex:outputText>   
+                                                 </td>
+                                             </tr>
+                                         </tbody>
+                                     </table>
+                                 </span>
+                             </td>
+                         <td class="dataCell  " colspan="3">
+                             <span>
+                                 <div>
+                                     <apex:outputText value="{0,number,$###,###,##0}">
+                                        <apex:param value="{!f.Quarter2_Forecast__c}"/>
+                                    </apex:outputText>
+                                 </div>
+                                 <br/>
+                                 <table class="list "  border="0" cellpadding="0" cellspacing="0">
+                                     <colgroup span="3"></colgroup>
+                                     <thead class="rich-table-thead">
+                                         <tr class="headerRow ">
+                                             <th class="headerRow  " scope="col" colspan="1" ><div >{!f.Month4_Code__c}</div>
+                                             </th>
+                                             <th class="headerRow  " scope="col" colspan="1" ><div >{!f.Month5_Code__c}</div>
+                                             </th>
+                                             <th class="headerRow  " scope="col" colspan="1" ><div >{!f.Month6_Code__c}</div>
+                                             </th>
+                                         </tr>
+                                     </thead>
+                                     <tbody >
+                                         <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
+                                             onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
+                                             onfocus="if (window.hiOn){hiOn(this);}">
+                                             <td class="dataCell  " colspan="1">
+                                                 <span>
+                                                    <apex:inputField value="{!f.Month4_Forecast__c}"/><br/>
+                                                 Budget: &nbsp;
+                            <apex:outputText value="{0,number,$###,###,##0}">
+                                <apex:param value="{! f.month4_budget__c }"/>
+                            </apex:outputText>
+                                                </span>
+                                             </td>
+                                             <td class="dataCell  " colspan="1">
+                                                <apex:inputField value="{!f.Month5_Forecast__c}"/><br/>
+                                                 Budget: &nbsp;
+                            <apex:outputText value="{0,number,$###,###,##0.00}">
+                                <apex:param value="{! f.month5_budget__c }"/>
+                            </apex:outputText>     
+                                             </td>
+                                             <td class="dataCell  " colspan="1">
+                                                <apex:inputField value="{!f.Month6_Forecast__c}"/><br/>
+                                                 Budget: &nbsp;
+                            <apex:outputText value="{0,number,$###,###,##0.00}">
+                                <apex:param value="{! f.month6_budget__c }"/>
+                            </apex:outputText>   
+                                             </td>
+                                         </tr>
+                                     </tbody>
+                                 </table>
+                             </span>
+                         </td>
+                          <td class="dataCell  " colspan="1"><apex:inputField value="{!f.Comments__c}"/></td>
+                    </tr>
+                </tbody>
+                </apex:repeat>
+                 
+            </table>
+            <br/>
+            <table class="list "  border="0" cellpadding="0" cellspacing="0">
+               
+                <apex:commandLink action="{! saveDetail}" value="Save" style="text-decoration:none" styleClass="btn">
+                    <apex:param name="rec" assignto="{!recordid}" value="{!recordid}"/>
+                </apex:commandLink>
+                
+                
+                <apex:commandButton immediate="true" action="{! rtnViewDetail}" value="Return" style="text-decoration:none"/>
+                
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

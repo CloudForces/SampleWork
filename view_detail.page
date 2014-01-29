@@ -1,0 +1,285 @@
+<apex:page controller="ForecastCtrl" id="forecastDetailsPage">
+    <style type="text/css">
+	    .highlight{ font-color: red}
+	</style>
+	
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" />
+	<apex:includeScript value="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js" />
+	<apex:stylesheet value="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css" />
+
+	<script>
+		j$ = jQuery.noConflict();
+		j$(document).ready(function(){
+			
+			j$('tr.detailSum').each(function(i,item){
+				var budgt = j$(item).find("td.bAmt").text();
+				var budget = budgt.valueOf().trim();
+				budget = budget.replace("$","");
+				
+				var foreA = j$(item).find("td.fAmtA").text();
+				var forecastA = foreA.valueOf().trim();
+				forecastA = forecastA.replace("$","");
+				
+				var foreB = j$(item).find("td.fAmtB").text();	
+				var forecastB = foreB.valueOf().trim();
+				forecastB = forecastB.replace("$","");
+				var totForecast = parseInt(forecastA, 10) + parseInt(forecastB, 10); 
+				if( totForecast > budget){
+					j$(item).css("background-color","LightYellow");	
+				}
+			})
+		
+		});
+	</script>
+    <apex:form >
+        <apex:pageBlock title="{!selectedForecast.Sales_Rep__r.Name}'s Forecast Details - {!selectedForecast.Entry_Period__c}" > 
+            <apex:messages style="color: red; font-weight: strong;"/>
+            <table class="list "  border="0" cellpadding="0" cellspacing="0">
+                <colgroup span="15"></colgroup>
+                <thead class="rich-table-thead">   
+                    <tr class="headerRow ">
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Advertiser Name</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Opportunity Name</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Opportunity Stage</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Product</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Split %</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Opportunity Budget</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >{!workingList[0].Month1_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >{!workingList[0].Month2_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >{!workingList[0].Month3_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" style="background:#F0F8FF;" colspan="1" ><div >{!workingList[0].Forecast__r.Quarter1_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >{!workingList[0].Month4_Code__c}</div>
+                         </th>
+                         <th class="headerRow  " scope="col" colspan="1" ><div >{!workingList[0].Month5_Code__c}</div>
+                         </th>
+                         <th class="headerRow  " scope="col" colspan="1" ><div >{!workingList[0].Month6_Code__c}</div>
+                         </th>
+                        <th class="headerRow  " scope="col" style="background:#F0F8FF;" colspan="1" ><div >{!workingList[0].Forecast__r.Quarter2_code__c}</div>
+                        </th>
+                        <th class="headerRow  " scope="col" colspan="1" ><div >Comments</div>
+                        </th>
+                    </tr>
+                    
+                </thead>
+                <tbody >
+	                    <tr class="headerRow ">
+	                		<td class="dataCell" colspan="6"> Forecast Totals</td>
+	                		<td class="dataCell  " colspan="1">
+	                			<apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month1_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month2_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month3_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1" style="background:#F0F8FF;">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_quarter1_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month4_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month5_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month6_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1" style="background:#F0F8FF;">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_quarter2_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell" colspan="1"> &nbsp;</td>
+	                	</tr><apex:repeat value="{!workingList}" var="f" >
+	                    <tr class="dataRow even  first  last detailSum" onmouseover="if (window.hiOn){hiOn(this);} "
+	                        onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
+	                        onfocus="if (window.hiOn){hiOn(this);}" style="font-size: 0.9em;" >
+	                            	
+		                            <td class="dataCell  "  colspan="1">
+		                                <apex:outputLink value="/{!f.Advertiser__c}" target="_blank" style="color: blue; text-decoration: underline;" >{!f.Advertiser__r.Name}</apex:outputLink>
+		                            </td>
+		                            <td class="dataCell  " colspan="1">
+										<apex:outputLink value="/{!f.Opportunity__c}" target="_blank" style="color: blue; text-decoration: underline;" 
+											onblur="LookupHoverDetail.getHover('{!f.Opportunity__r.Id}').hide();" 
+											onfocus="LookupHoverDetail.getHover('{!f.Opportunity__r.Id}', '/{!f.Opportunity__r.Id}/m?retURL=%2F{!f.Opportunity__r.Id}&isAjaxRequest=1').show();"
+											onmouseout="LookupHoverDetail.getHover('{!f.Opportunity__r.Id}').hide();" 
+											onmouseover="LookupHoverDetail.getHover('{!f.Opportunity__r.Id}', '/{!f.Opportunity__r.Id}/m?retURL=%2F{!f.Opportunity__r.Id}&isAjaxRequest=1').show();">
+												{!f.Opportunity__r.Name}
+										</apex:outputLink>
+									</td>
+		                           
+		                            <td class="dataCell  " colspan="1">
+		                                <apex:outputField value="{!f.StageName__c}"/> 
+		                            </td>
+		                            <td class="dataCell  " colspan="1">
+		                                <apex:outputField value="{!f.iAd_Type__c}"/> 
+		                            </td>
+		                            <td class="dataCell  " colspan="1">
+		                                <apex:outputField value="{!f.Split_Percent__c}"/> 
+		                            </td>
+		                            
+			                            <td class="dataCell bAmt" colspan="1">
+			                            	<div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Budget__c}" />
+				                                </apex:outputText>
+			                                 </div>
+			                            
+			                            </td>
+			                             <td class="dataCell  " colspan="1" >
+				                         	 <div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Month1_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div>     
+				                         </td>
+				                         <td class="dataCell  " colspan="1" >
+				                            <div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Month2_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div>
+				                        </td>
+				                         <td class="dataCell  " colspan="1" >
+				                            <div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Month3_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div>
+				                        </td>
+				                         <td class="dataCell  fAmtA" colspan="1" style="background:#F0F8FF;">
+				                         	<div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Quarter1_Forecast__c}"/>
+				                               </apex:outputText>
+				                            </div>
+				                         </td>
+				                         <td class="dataCell  " colspan="1" >
+				                               <div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Month4_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div>
+				                            
+				                         </td>
+				                         <td class="dataCell  " colspan="1" >
+				                            <div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Month5_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div>
+				                               </td>
+				                         <td class="dataCell  " colspan="1" >
+				                            <div>
+				                                <apex:outputText value="{0,number,$###,###,##0}">
+				                                   <apex:param value="{!f.Month6_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div>
+				                         </td>
+				                         <td class="dataCell  fAmtB" colspan="1" style="background:#F0F8FF;">
+				                         	<div>
+				                                <apex:outputText value="{0,number,$###,###,##0}" >
+				                                   <apex:param value="{!f.Quarter2_Forecast__c}"/>
+				                                </apex:outputText>
+			                                 </div></td>
+		                        <td class="dataCell  " colspan="1" ><apex:outputField value="{!f.Comments__c}"/></td>
+	                    </tr></apex:repeat>
+                	<tr class="headerRow ">
+	                		<td class="dataCell" colspan="6"> Forecast Totals</td>
+	                		<td class="dataCell  " colspan="1">
+	                			<apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month1_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month2_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month3_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1" style="background:#F0F8FF;">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_quarter1_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month4_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month5_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_month6_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell  " colspan="1" style="background:#F0F8FF;">
+	                            <apex:outputText value="{0,number,$###,###,##0}">
+	                               <apex:param value="{!selectedForecast.RUS_quarter2_forecast__c}"/>
+	                            </apex:outputText>
+	                        </td>
+	                        <td class="dataCell" colspan="1"> &nbsp;</td>
+	                	</tr>
+                </tbody>
+                
+            </table>
+            <br/>
+               <apex:commandLink value="Edit" style="text-decoration:none" action="{!editDetail}" styleClass="btn" rendered="{!OR(!isSelectForecastSubmitted, AND(isManager, !selectedForecast.Approved__c))}">
+                   <apex:param name="rec" value="{!recordId}" assignTo="{!recordId}"/>
+               </apex:commandLink>
+	               
+               <apex:commandLink action="{! beginShow}" value="Return to Summary" style="text-decoration:none" styleClass="btn">
+                    <apex:param name="rec" assignto="{!recordid}" value="{!recordid}"/>
+               </apex:commandLink>
+               
+				<apex:commandLink action="{!URLFOR($Action.Forecast__c.Submit,recordId)}" value="Submit for Approval" style="text-decoration:none" styleClass="btn" rendered="{!NOT(selectedForecast.Submitted__c)}">
+				    <apex:param name="rec" assignto="{!recordid}" value="{!recordid}"/>
+				</apex:commandLink>
+				<apex:commandLink value="Approve / Reject" style="text-decoration:none" action="{!getApprovalInstance}" styleClass="btn" 
+						rendered="{! AND(AND(OR($User.Id == selectedForecast.Sales_Rep__r.ManagerId,$User.Id == selectedForecast.Approver__r.Id ),selectedForecast.Submitted__c),!selectedForecast.Approved__c) }">
+                    <apex:param name="rec" value="{!selectedForecast.Id}" assignTo="{!recordId}"/>
+                </apex:commandLink>
+        </apex:pageBlock>
+    </apex:form>
+    <style>
+		.ui-state-active{
+			border: 1px solid #fbd850;
+			background: #ffffff;
+			font-weight: bold;
+			color: #eb8f00;
+		}
+	</style>
+</apex:page>
