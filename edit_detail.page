@@ -34,9 +34,7 @@
                     </tr>
                 </thead>
                 <tbody >
-                    <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
-                        onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
-                        onfocus="if (window.hiOn){hiOn(this);}">
+                    <tr class="dataRow even  first  last" >
                             <td class="dataCell  "  colspan="1">
                                 <apex:outputLink value="/{!f.Advertiser__c}" target="_blank" style="color: blue; text-decoration: underline;" >{!f.Advertiser__r.Name}</apex:outputLink>
                             </td>
@@ -76,9 +74,7 @@
                                              </tr>
                                          </thead>
                                          <tbody>
-                                             <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
-                                                 onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
-                                                 onfocus="if (window.hiOn){hiOn(this);}">
+                                             <tr class="dataRow even  first  last">
                                                  <td class="dataCell  " colspan="1">
                                                      <span>
                                                         <apex:inputField value="{!f.Month1_Forecast__c}"/><br/>
@@ -128,9 +124,7 @@
                                          </tr>
                                      </thead>
                                      <tbody >
-                                         <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
-                                             onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
-                                             onfocus="if (window.hiOn){hiOn(this);}">
+                                         <tr class="dataRow even  first  last" >
                                              <td class="dataCell  " colspan="1">
                                                  <span>
                                                     <apex:inputField value="{!f.Month4_Forecast__c}"/><br/>
