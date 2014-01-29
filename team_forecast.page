@@ -1,7 +1,4 @@
 <apex:page controller="ForecastCtrl" id="myForecastPage">
-    <style>
-		[class$='actionColumn'] {display:none}
-	</style> 
     <apex:form > 
 		<apex:pageBlock >
 	        <apex:selectList size="1" value="{!choice}">
@@ -48,11 +45,7 @@
 		                            </thead>
 		                            <tbody>
 		                            	
-		                                <tr class="dataRow even  first  last"
-		                                    onmouseover="if (window.hiOn){hiOn(this);} "
-		                                    onmouseout="if (window.hiOff){hiOff(this);} "
-		                                    onblur="if (window.hiOff){hiOff(this);}"
-		                                    onfocus="if (window.hiOn){hiOn(this);}">
+		                                <tr class="dataRow even  first  last">
 		                                    <td class="dataCell  " colspan="1">
 		                                    	<apex:commandLink value="{!tmp.Entry_Period__c}" action="{!viewDetail}"
 		                                            style="color: blue; text-decoration: underline;">
