@@ -3,11 +3,6 @@
  * TestUtil
  *
  * This is a utility class, designed for use solely in other test classes.
- *
- * Any object creation performed within unit tests should be done here, rather than in the 
- * tests themselves.  This will allow for a single place to update, when there are new 
- * validation rules, workflow changes, etc.
- *
  */
 
 @isTest
@@ -24,9 +19,7 @@ public class TestUtil {
             acct = createAccount(); insert acct;
 	        List<Currency_Conversion__c> convs = new List<Currency_Conversion__c>{
                 new Currency_Conversion__c(Conversion_Rate__c = 1.2, From_Currency__c = 'GBP', To_Currency__c = 'USD', Start_Date__c = Date.valueOf('2010-10-01')),
-	            new Currency_Conversion__c(Conversion_Rate__c = 1.2, From_Currency__c = 'GBP', To_Currency__c = 'USD', Start_Date__c = system.today().addDays(-30)),
 	            new Currency_Conversion__c(Conversion_Rate__c = 1.3, From_Currency__c = 'EUR', To_Currency__c = 'USD', Start_Date__c = system.today().addDays(-30)),
-	            new Currency_Conversion__c(Conversion_Rate__c = 1.4, From_Currency__c = 'GBP', To_Currency__c = 'EUR', Start_Date__c = system.today().addDays(-30)),
 	            new Currency_Conversion__c(Conversion_Rate__c = 1.0, From_Currency__c = 'USD', To_Currency__c = 'USD', Start_Date__c = system.today().addDays(-30))
 	        }; insert convs;
         }
@@ -164,7 +157,6 @@ public class TestUtil {
             StageName                         = 'In Discussions',
             Focus_Account__c = 'No',
             Pre_Sales_Sales_Marketing_Support__c='None',
-            recordTypeId='012700000001a3K',
             Amount_LC__c=100
         );
     }
@@ -179,8 +171,6 @@ public class TestUtil {
         }
         return new Line_Item__c(
             End_Date__c               = system.today()-7,
-            //Local_Currency__c         = 'GBP',
-            //MSA_Currency__c           = 'EUR', 
             Opp_Exchange_Rate_Date__c = system.today(),
             Opportunity_Name__c       = OppId,
             Start_Date__c             = system.today()-14,
