@@ -24,7 +24,7 @@ private class ForecastCtrlTest {
 	        
 	        //Create Opportuntiy
 	        opp = TestUtil.createOpp(); 
-	        opp.iAd_Type__c='i4B';
+	        opp.iAd_Type__c='#####';
 	        opp.OwnerId = salesUsr.Id;
 	        opp.ForecastCategoryName='Pipeline';
 	        insert opp;
