@@ -49,9 +49,7 @@
                                 </tr>
                             </thead>
                             <tbody >
-                                <tr class="dataRow even  first  last" onmouseover="if (window.hiOn){hiOn(this);} "
-                                onmouseout="if (window.hiOff){hiOff(this);} " onblur="if (window.hiOff){hiOff(this);}"
-                                onfocus="if (window.hiOn){hiOn(this);}">
+                                <tr class="dataRow even  first  last" >
                                     <td class="dataCell  " colspan="1">
                                         <apex:commandLink action="{!viewDetail}" value="{!tmp.Entry_Period__c}" style="color: blue; text-decoration: underline;">
                                             <apex:param name="rec" value="{!tmp.Id}" assignTo="{!recordId}"/>
